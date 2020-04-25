@@ -1,0 +1,25 @@
+
+#content-container {
+  height: 200px;
+  background: white;
+}
+
+table {
+  width: 100%;
+  border: 2px solid #404040;
+}
+
+table thead {
+  background: #808080;
+  border-bottom: 2px solid #404040;
+  color: white;
+}
+
+#file-count-p {
+  display: inline;
+}
+
+#upload-button {
+  display: inline;
+  float: right;
+}

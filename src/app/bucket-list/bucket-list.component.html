@@ -1,1 +1,26 @@
-<p>bucket-list works!</p>
+<div id="list-container">
+  <p class="bucket-count">All Buckets {{buckets.length}}</p>
+
+  <input class="create-button" type="button" value="Create New Bucket">
+
+
+  <div>
+    <table>
+      <thead >
+      <tr class="bucket-list-header" >
+        <td>Name</td>
+        <td>Location</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let bucket of buckets">
+        <td>
+          <input id="bucketName" type="button" value="{{bucket.name}}">
+        </td>
+        <td>{{bucket.location}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

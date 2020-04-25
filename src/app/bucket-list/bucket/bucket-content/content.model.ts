@@ -1,2 +1,2 @@
-export interface Content.Model {
+export interface ContentModel {
 }

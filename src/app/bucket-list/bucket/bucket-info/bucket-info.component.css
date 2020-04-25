@@ -1,0 +1,8 @@
+#details-container {
+  height: 200px;
+  background: white;
+}
+
+#delete-button {
+  float: right;
+}

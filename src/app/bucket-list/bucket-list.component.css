@@ -1,0 +1,24 @@
+.bucket-count {
+  display: inline-block;
+}
+
+.create-button {
+  float: right;
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+  border: 2px solid #404040;
+}
+
+table thead {
+  background: #808080;
+  border-bottom: 2px solid #404040;
+  color: white;
+}
+
+#list-container {
+  height: 200px;
+  background: white;
+}

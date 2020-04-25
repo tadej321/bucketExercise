@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./create-bucket.component.css']
 })
 export class CreateBucketComponent implements OnInit {
+  public locations = ["Kranj", "ljubljana", "Bled", "Maribor", "Novo mesto", "Lesce", "Nova Gorica", "Celje"];
 
   constructor() { }
 

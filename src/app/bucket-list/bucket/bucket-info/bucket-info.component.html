@@ -1,1 +1,17 @@
-<p>bucket-info works!</p>
+<div id="details-container">
+  <input id="delete-button" type="button" value="Delete File">
+  <table>
+    <tr>
+      <td>Bucket name</td>
+      <td>{{bucket.name}}</td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>{{bucket.location}}</td>
+    </tr>
+    <tr>
+      <td>Storage size</td>
+      <td>{{bucket.content.size}}</td>
+    </tr>
+  </table>
+</div>

@@ -1,1 +1,24 @@
-<p>create-bucket works!</p>
+<div id="create-container">
+  <p>Create New Bucket</p>
+
+  <table class="">
+    <tr>
+      <td>Bucket Name*</td>
+      <td>Bucket Location*</td>
+    </tr>
+    <tr>
+      <td>
+        <input type="text">
+      </td>
+      <td>
+        <input type="text" id="myInput">
+        <div class="dropdown-content">
+          <a *ngFor="let location of locations" href="{{'#' + location}}">{{location}}</a>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <input type="button" value="Create Bucket">
+
+</div>
+
