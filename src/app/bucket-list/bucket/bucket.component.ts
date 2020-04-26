@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {BucketModel} from './bucket.model';
 
 @Component({
   selector: 'app-bucket',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BucketComponent implements OnInit {
 
+  @Input() bucket: BucketModel;
+
+  view: string;
   constructor() { }
 
   ngOnInit() {
+    this.view = 'details';
   }
 
+  changeView(view: string) {
+    this.view = view;
+  }
 }

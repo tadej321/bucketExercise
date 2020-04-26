@@ -1,10 +1,10 @@
 .bucket-count {
-  display: inline-block;
+  display: inline;
 }
 
 .create-button {
   float: right;
-  display: inline-block;
+  display: inline;
 }
 
 table {

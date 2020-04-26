@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BucketModel} from '../bucket.model';
+import {ContentModel} from '../bucket-content/content.model';
 
 @Component({
   selector: 'app-bucket-info',
@@ -7,15 +8,19 @@ import {BucketModel} from '../bucket.model';
   styleUrls: ['./bucket-info.component.css']
 })
 export class BucketInfoComponent implements OnInit {
-  bucket: BucketModel = {
-    name: 'Bucket 1',
-    location: 'Kranj',
-    content: {size: '1.6 GB'}
-  };
+
+  @Input() bucket: BucketModel;
 
   constructor() { }
 
   ngOnInit() {
   }
 
+  calculateSize(content: ContentModel[]): number {
+    let bucketSize = 0;
+    for (const file of content) {
+      bucketSize += file.size;
+    }
+    return bucketSize;
+  }
 }

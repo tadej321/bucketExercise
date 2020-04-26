@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {BucketModel} from './bucket-list/bucket/bucket.model';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,15 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'bucketExercise';
   label = 'Bucket list';
+  view = 'bucketList';
+
+  viewedBucket: BucketModel;
+
+  viewBucket(viewedBucket: BucketModel) {
+    this.viewedBucket = viewedBucket;
+    this.view = 'bucket';
+  }
+
+
+
 }

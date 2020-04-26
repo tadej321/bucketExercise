@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Input, OnInit} from '@angular/core';
+import {BucketModel} from './bucket.model';
 
 @Injectable({
   providedIn: 'root'
@@ -6,4 +7,6 @@ import { Injectable } from '@angular/core';
 export class BucketContentService {
 
   constructor() { }
+
+
 }

@@ -2,16 +2,16 @@
   <input id="delete-button" type="button" value="Delete File">
   <table>
     <tr>
-      <td>Bucket name</td>
+      <td>Bucket name: </td>
       <td>{{bucket.name}}</td>
     </tr>
     <tr>
-      <td>Location</td>
+      <td>Location: </td>
       <td>{{bucket.location}}</td>
     </tr>
     <tr>
-      <td>Storage size</td>
-      <td>{{bucket.content.size}}</td>
+      <td>Storage size: </td>
+      <td>{{calculateSize(bucket.content)}} KB</td>
     </tr>
   </table>
 </div>

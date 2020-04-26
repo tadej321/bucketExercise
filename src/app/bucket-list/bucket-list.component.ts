@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {BucketModel} from './bucket/bucket.model';
 import {BucketService} from './bucket.service';
 import {Subscription} from 'rxjs';
@@ -10,19 +10,30 @@ import {map} from 'rxjs/operators';
   styleUrls: ['./bucket-list.component.css']
 })
 export class BucketListComponent implements OnInit {
-  public buckets: BucketModel[] = [
-    {name: 'bucket 1', location: 'Ljubljana', content: {}}, {name: 'bucket 2', location: 'Kranj', content: {}}];
+  public buckets: BucketModel[] = [];
 
   private bucketSub: Subscription;
-  constructor(public bucketService: BucketService) { }
+  private openCreateBucket = false;
+
+  @Output() viewedBucket = new EventEmitter<BucketModel>();
+
+  constructor(public bucketService: BucketService) {
+  }
 
   ngOnInit() {
-    this.bucketService.getBuckets();
-
     this.bucketSub = this.bucketService.getBucketUpdatedListener()
       .subscribe(bucketData => {
         this.buckets = bucketData.buckets;
       });
+    this.bucketService.getBuckets();
   }
 
+
+  onCreateNewBucket() {
+    this.openCreateBucket = !this.openCreateBucket;
+  }
+
+  onViewBucket(bucket: BucketModel) {
+    this.viewedBucket.emit(bucket);
+  }
 }

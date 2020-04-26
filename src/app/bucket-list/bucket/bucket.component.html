@@ -1,7 +1,13 @@
 <div id="bucket-container">
-  <input id="files-button" type="button" value="Details">
-  <input id="details-button" type="button" value="Files">
+  <input id="files-button" type="button" (click)="changeView('details')" value="Details">
+  <input id="details-button" type="button" (click)="changeView('info')" value="Files">
 
-  <app-bucket-content></app-bucket-content>
-  <app-bucket-info></app-bucket-info>
+  <app-bucket-content
+    *ngIf="view === 'details'"
+    [bucketContent]="bucket.content"
+  ></app-bucket-content>
+  <app-bucket-info
+    *ngIf="view === 'info'"
+    [bucket]="bucket"
+  ></app-bucket-info>
 </div>

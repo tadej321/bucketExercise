@@ -1,5 +1,5 @@
 <div id="content-container">
-  <p id="file-count-p">All Files ({{files.length}})</p>
+  <p id="file-count-p">All Files ({{bucketContent.length}})</p>
   <input id="upload-button" value="Upload File" type="button">
   <table>
     <thead>
@@ -10,10 +10,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let file of files">
-        <td>{{file.name}}</td>
+      <tr *ngFor="let file of bucketContent">
+        <td>{{file.fileName}}</td>
         <td>{{file.modified}}</td>
-        <td>{{file.size}}</td>
+        <td>{{file.size}} KB</td>
         <td><input type="button" value="X"></td>
       </tr>
     </tbody>
