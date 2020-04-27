@@ -1,6 +1,15 @@
 import { Injectable } from '@angular/core';
 import {BucketModel} from './bucket/bucket.model';
-import {Observable, Subject} from 'rxjs';
+import {Observable, Subject, Subscription} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
+
+const LOCATIONS_URL = environment.locationsApiUrl;
+
+interface Location {
+  location: string;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -26,17 +35,42 @@ export class BucketService {
       ]
     }
   ];
+
+  public locations;
   private bucketsUpdated = new Subject<{buckets: BucketModel[]}>();
 
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
-  getBuckets() {
+  getBuckets(): void {
     this.bucketsUpdated.next({buckets: [...this.buckets]});
   }
 
-  getBucketUpdatedListener() {
+  getBucketUpdatedListener(): Observable<{buckets: BucketModel[]}> {
     return this.bucketsUpdated.asObservable();
   }
 
+
+  getLocations(): Observable<[Location]> {
+    return new Observable((subscriber) => {
+      this.http.get(
+        LOCATIONS_URL
+      ).pipe(map((data: Array<any>) => {
+        const location = [];
+        for (const obj of data) {
+          location.push({location: obj.kraj});
+        }
+        return location;
+      }))
+      .subscribe((locations: [Location]) => {
+        subscriber.next(locations);
+      });
+    });
+  }
+
+  createBucket(newBucket: BucketModel): void {
+    // Include http post call here
+    this.buckets.push(newBucket);
+    this.bucketsUpdated.next({buckets: [...this.buckets]});
+  }
 }

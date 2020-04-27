@@ -20,7 +20,7 @@ export class BucketListComponent implements OnInit {
   constructor(public bucketService: BucketService) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.bucketSub = this.bucketService.getBucketUpdatedListener()
       .subscribe(bucketData => {
         this.buckets = bucketData.buckets;
@@ -29,11 +29,11 @@ export class BucketListComponent implements OnInit {
   }
 
 
-  onCreateNewBucket() {
+  onCreateNewBucket(): void {
     this.openCreateBucket = !this.openCreateBucket;
   }
 
-  onViewBucket(bucket: BucketModel) {
+  onViewBucket(bucket: BucketModel): void {
     this.viewedBucket.emit(bucket);
   }
 }

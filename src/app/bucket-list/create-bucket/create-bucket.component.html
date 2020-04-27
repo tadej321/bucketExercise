@@ -1,24 +1,46 @@
 <div id="create-container">
   <p>Create New Bucket</p>
-
-  <table class="">
-    <tr>
-      <td>Bucket Name*</td>
-      <td>Bucket Location*</td>
-    </tr>
-    <tr>
-      <td>
-        <input type="text">
-      </td>
-      <td>
-        <input type="text" id="myInput">
-        <div class="dropdown-content">
-          <a *ngFor="let location of locations" href="{{'#' + location}}">{{location}}</a>
-        </div>
-      </td>
-    </tr>
-  </table>
-  <input type="button" value="Create Bucket">
+    <form #createBucketForm="ngForm" (submit)="onCreateBucket(createBucketForm, $event)">
+    <table class="">
+      <tr>
+        <td>Bucket Name*</td>
+        <td>Bucket Location*</td>
+      </tr>
+      <tr>
+        <td>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              name="bucketName"
+              id="bucketName"
+              [formControl]="bucketNameInputElement"
+            >
+          </div>
+        </td>
+        <td>
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="text"
+              [formControl]="locationInputElement"
+              name="location"
+              id="locationInput"
+              (keyup)="filterLocations($event)"
+            >
+            <div class="dropdown-content">
+              <input
+                *ngFor="let location of locations"
+                value="{{location}}"
+                (click)="setValue($event)"
+              >
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+    <input type="submit"  value="Create Bucket">
+  </form>
 
 </div>
 

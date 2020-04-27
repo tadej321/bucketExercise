@@ -7,6 +7,9 @@ import { BucketComponent } from './bucket-list/bucket/bucket.component';
 import { CreateBucketComponent } from './bucket-list/create-bucket/create-bucket.component';
 import { BucketContentComponent } from './bucket-list/bucket/bucket-content/bucket-content.component';
 import { BucketInfoComponent } from './bucket-list/bucket/bucket-info/bucket-info.component';
+import {CommonModule} from '@angular/common';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +21,11 @@ import { BucketInfoComponent } from './bucket-list/bucket/bucket-info/bucket-inf
     BucketInfoComponent
   ],
   imports: [
-    BrowserModule
+    CommonModule,
+    BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,7 +13,7 @@ export class AppComponent {
 
   viewedBucket: BucketModel;
 
-  viewBucket(viewedBucket: BucketModel) {
+  viewBucket(viewedBucket: BucketModel): void {
     this.viewedBucket = viewedBucket;
     this.view = 'bucket';
   }
