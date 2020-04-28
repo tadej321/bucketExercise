@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BucketModel} from '../bucket.model';
 import {ContentModel} from '../bucket-content/content.model';
+import {BucketService} from '../../bucket.service';
+import {ActivatedRoute} from '@angular/router';
+import {switchMap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-bucket-info',
@@ -9,11 +12,15 @@ import {ContentModel} from '../bucket-content/content.model';
 })
 export class BucketInfoComponent implements OnInit {
 
-  @Input() bucket: BucketModel;
+  bucket: BucketModel;
 
-  constructor() { }
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private bucketService: BucketService
+  ) { }
 
   ngOnInit() {
+    console.log(this.activatedRoute.snapshot.paramMap);
   }
 
   calculateSize(content: ContentModel[]): number {
@@ -22,5 +29,12 @@ export class BucketInfoComponent implements OnInit {
       bucketSize += file.size;
     }
     return bucketSize;
+  }
+
+
+  onDeleteBucket(bucketId: string): void {
+    if (confirm('Do you really want to delete this bucket?')) {
+      this.bucketService.deleteBucket(bucketId);
+    }
   }
 }

@@ -4,14 +4,7 @@
   </div>
   <div class="bucket-list">
     <h1>{{label}}</h1>
-    <app-bucket-list
-      *ngIf="view === 'bucketList'"
-      (viewedBucket)="viewBucket($event)"
-    ></app-bucket-list>
-    <app-bucket
-      *ngIf="view === 'bucket'"
-      [bucket]="viewedBucket"
-    ></app-bucket>
+    <router-outlet></router-outlet>
   </div>
 </div>
 

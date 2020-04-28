@@ -4,8 +4,11 @@ import {Observable, Subject, Subscription} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
+import {Router} from '@angular/router';
+import {ContentModel} from './bucket/bucket-content/content.model';
 
 const LOCATIONS_URL = environment.locationsApiUrl;
+const BUCKET_URL = environment.bucketApiURl;
 
 interface Location {
   location: string;
@@ -18,6 +21,7 @@ export class BucketService {
 
   public buckets: BucketModel[] = [
     {
+      id: 'da6d8d8as7d68a7s6d',
       name: 'bucket 1',
       location: 'Ljubljana',
       content: [
@@ -26,6 +30,7 @@ export class BucketService {
         {fileName: 'filename 3', fileURL: 'none', modified: new Date(), size: 1000}
       ]},
     {
+      id: 'dasd9s7d9a7s97da9',
       name: 'bucket 2',
       location: 'Kranj',
       content: [
@@ -40,7 +45,24 @@ export class BucketService {
   private bucketsUpdated = new Subject<{buckets: BucketModel[]}>();
 
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
+
+  getBucketById(id: string): Observable<BucketModel> {
+    if (BUCKET_URL) {
+      return this.http.get<{
+        id: string;
+        name: string;
+        location: string;
+        content: ContentModel[];
+      }>(BUCKET_URL + id);
+    } else {
+      return new Observable<BucketModel>((subscriber => {
+        const bucketIndex = this.buckets.findIndex(i => i.id === id);
+        const bucket = this.buckets[bucketIndex];
+        subscriber.next(bucket);
+      }));
+    }
+  }
 
   getBuckets(): void {
     this.bucketsUpdated.next({buckets: [...this.buckets]});
@@ -72,5 +94,51 @@ export class BucketService {
     // Include http post call here
     this.buckets.push(newBucket);
     this.bucketsUpdated.next({buckets: [...this.buckets]});
+  }
+
+  deleteBucket(id: string): void {
+    if (BUCKET_URL) {
+      this.http.delete<{message: string}>(BUCKET_URL + id)
+        .subscribe(response => {
+          const updatedBuckets = [...this.buckets];
+          const bucketIndex = updatedBuckets.findIndex(i => i.id === id);
+
+          updatedBuckets.splice(bucketIndex, 1);
+
+          this.buckets = updatedBuckets;
+          this.bucketsUpdated.next({buckets: [...this.buckets]});
+
+          this.router.navigate(['']);
+        });
+    } else {
+      const updatedBuckets = [...this.buckets];
+      const bucketIndex = updatedBuckets.findIndex(i => i.id === id);
+
+      updatedBuckets.splice(bucketIndex, 1);
+
+      this.buckets = updatedBuckets;
+      this.bucketsUpdated.next({buckets: [...this.buckets]});
+      console.log(this.router.getCurrentNavigation());
+      this.router.navigate(['']);
+    }
+  }
+
+  addFile(id: string, file: File) {
+
+    // const postData: FormData = new FormData();
+    //
+    // postData.append('fileName', file.name);
+    // postData.append('fileURL', file);
+    // postData.append('modified', file.lastModified.toLocaleString());
+    // postData.append('size', file.size.toString());
+    //
+    // console.log(postData.get('fileURL'));
+    if (BUCKET_URL) {
+      this.http.put(BUCKET_URL + id, file)
+        .subscribe(response => {
+
+        });
+
+    }
   }
 }

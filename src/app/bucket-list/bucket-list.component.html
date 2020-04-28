@@ -16,7 +16,7 @@
       <tbody>
       <tr *ngFor="let bucket of buckets">
         <td>
-          <input id="bucketName" type="button" (click)="onViewBucket(bucket)" value="{{bucket.name}}">
+          <a routerLink="/bucket/{{bucket.id}}" routerLinkActive="active">{{bucket.name}}</a>
         </td>
         <td>{{bucket.location}}</td>
       </tr>

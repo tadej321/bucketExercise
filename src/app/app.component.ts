@@ -1,5 +1,6 @@
 import {Component, Input} from '@angular/core';
 import {BucketModel} from './bucket-list/bucket/bucket.model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,12 @@ export class AppComponent {
   view = 'bucketList';
 
   viewedBucket: BucketModel;
+
+  constructor(private router: Router) {
+    this.router = router;
+    console.log(this.router.getCurrentNavigation());
+  }
+
 
   viewBucket(viewedBucket: BucketModel): void {
     this.viewedBucket = viewedBucket;

@@ -1,15 +1,16 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {BucketModel} from './bucket/bucket.model';
 import {BucketService} from './bucket.service';
 import {Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-bucket-list',
   templateUrl: './bucket-list.component.html',
   styleUrls: ['./bucket-list.component.css']
 })
-export class BucketListComponent implements OnInit {
+export class BucketListComponent implements OnInit, OnDestroy {
   public buckets: BucketModel[] = [];
 
   private bucketSub: Subscription;
@@ -17,7 +18,8 @@ export class BucketListComponent implements OnInit {
 
   @Output() viewedBucket = new EventEmitter<BucketModel>();
 
-  constructor(public bucketService: BucketService) {
+  constructor(public bucketService: BucketService, private router: Router) {
+    this.router = router;
   }
 
   ngOnInit(): void {
@@ -35,5 +37,9 @@ export class BucketListComponent implements OnInit {
 
   onViewBucket(bucket: BucketModel): void {
     this.viewedBucket.emit(bucket);
+  }
+
+  ngOnDestroy(): void {
+    this.bucketSub.unsubscribe();
   }
 }

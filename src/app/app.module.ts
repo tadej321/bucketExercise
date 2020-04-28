@@ -10,7 +10,8 @@ import { BucketInfoComponent } from './bucket-list/bucket/bucket-info/bucket-inf
 import {CommonModule} from '@angular/common';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-
+import {RouterModule} from '@angular/router';
+import {AppRoutingModule} from './app-routing.module';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,9 +26,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    RouterModule
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -23,3 +23,7 @@ table thead {
   display: inline;
   float: right;
 }
+
+#file-input {
+  display: none;
+}
