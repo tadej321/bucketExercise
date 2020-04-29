@@ -54,7 +54,7 @@ export class BucketService {
         name: string;
         location: string;
         content: ContentModel[];
-      }>(BACKEND_URL + id);
+      }>(BACKEND_URL + '/bucket/' + id);
     } else {
       return new Observable<BucketModel>((subscriber => {
         const bucketIndex = this.buckets.findIndex(i => i._id === id);
@@ -65,7 +65,16 @@ export class BucketService {
   }
 
   getBuckets(): void {
-    this.bucketsUpdated.next({buckets: [...this.buckets]});
+    if (BACKEND_URL) {
+      this.http.get<{message: string, buckets: BucketModel[]}>(
+        BACKEND_URL + '/bucket'
+      ).subscribe(response => {
+        this.buckets = response.buckets;
+        this.bucketsUpdated.next({buckets: [...this.buckets]});
+      });
+    } else {
+      this.bucketsUpdated.next({buckets: [...this.buckets]});
+    }
   }
 
   getBucketUpdatedListener(): Observable<{buckets: BucketModel[]}> {
@@ -90,15 +99,25 @@ export class BucketService {
     });
   }
 
-  createBucket(newBucket: BucketModel): void {
-    // Include http post call here
-    this.buckets.push(newBucket);
-    this.bucketsUpdated.next({buckets: [...this.buckets]});
+  addBucket(newBucket: BucketModel): void {
+    if (BACKEND_URL) {
+      this.http.post<{message: string, bucket: BucketModel}>(
+        BACKEND_URL + '/bucket',
+        newBucket
+      ).subscribe((response) => {
+        this.buckets.push(response.bucket);
+
+        this.bucketsUpdated.next({buckets: [...this.buckets]});
+      });
+    } else {
+      this.buckets.push(newBucket);
+      this.bucketsUpdated.next({buckets: [...this.buckets]});
+    }
   }
 
   deleteBucket(id: string): void {
     if (BACKEND_URL) {
-      this.http.delete<{message: string}>(BACKEND_URL + id)
+      this.http.delete<{message: string}>(BACKEND_URL + '/bucket/' + id)
         .subscribe(response => {
           const updatedBuckets = [...this.buckets];
           const bucketIndex = updatedBuckets.findIndex(i => i._id === id);
@@ -135,7 +154,7 @@ export class BucketService {
       postData.append('modified', file.lastModified.toLocaleString());
       postData.append('size', file.size.toString());
 
-      this.http.put(BACKEND_URL + id, file)
+      this.http.put(BACKEND_URL + '/bucket/' + id, postData)
         .subscribe(response => {
           this.router.navigate(['bucket/' + id]);
         });
@@ -158,7 +177,7 @@ export class BucketService {
 
   removeFile(fileId: string, bucketId: string): void {
     if (BACKEND_URL) {
-      this.http.delete<{message: string}>(BACKEND_URL + '?fileId=' + fileId + '&bucketId=' + bucketId)
+      this.http.delete<{message: string}>(BACKEND_URL + '/bucket' + '?fileId=' + fileId + '&bucketId=' + bucketId)
         .subscribe(response => {
           this.router.navigate(['bucket/' + bucketId]);
         });

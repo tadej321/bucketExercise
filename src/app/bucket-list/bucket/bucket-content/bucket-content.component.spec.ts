@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BucketContentComponent } from './bucket-content.component';
+import {BucketService} from '../../bucket.service';
 
 describe('BucketContentComponent', () => {
   let component: BucketContentComponent;
@@ -22,4 +23,5 @@ describe('BucketContentComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

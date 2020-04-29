@@ -51,7 +51,7 @@ export class CreateBucketComponent implements OnInit {
       content: []
     };
 
-    this.bucketService.createBucket(newBucket);
+    this.bucketService.addBucket(newBucket);
 
   }
 }

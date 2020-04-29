@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {BucketModel} from './bucket/bucket.model';
 import {BucketService} from './bucket.service';
-import {Subscription} from 'rxjs';
+import {Observable, Subscriber, Subscription} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
 
@@ -22,11 +22,14 @@ export class BucketListComponent implements OnInit, OnDestroy {
     this.router = router;
   }
 
+
   ngOnInit(): void {
+    console.log(this.bucketSub);
     this.bucketSub = this.bucketService.getBucketUpdatedListener()
       .subscribe(bucketData => {
         this.buckets = bucketData.buckets;
       });
+    console.log(this.bucketSub);
     this.bucketService.getBuckets();
   }
 
@@ -35,8 +38,9 @@ export class BucketListComponent implements OnInit, OnDestroy {
     this.openCreateBucket = !this.openCreateBucket;
   }
 
-  onViewBucket(bucket: BucketModel): void {
-    this.viewedBucket.emit(bucket);
+  getBucketSub(): Subscription {
+
+    return this.bucketSub;
   }
 
   ngOnDestroy(): void {
