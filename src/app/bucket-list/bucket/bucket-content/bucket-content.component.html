@@ -1,7 +1,7 @@
 <div id="content-container">
   <p id="file-count-p">All Files ({{bucket.content.length}})</p>
   <button id="upload-button"  (click)="filePicker.click()">Upload File</button>
-  <input id="file-input" type="file" #filePicker (change)="onFilePicked($event)">
+  <input type="file" id="file-input" #filePicker (change)="onFilePicked($event)">
   <table>
     <thead>
       <tr>
@@ -13,9 +13,9 @@
     <tbody>
       <tr *ngFor="let file of bucket.content">
         <td>{{file.fileName}}</td>
-        <td>{{file.modified}}</td>
-        <td>{{file.size}} KB</td>
-        <td><input type="button" value="X"></td>
+        <td>{{file.modified.toLocaleDateString("en-US")}}</td>
+        <td>{{file.size / 1000}} KB</td>
+        <td><input id="removeFileInput" type="button" value="Remove file" (click)="onRemoveFile(file._id)"></td>
       </tr>
     </tbody>
   </table>

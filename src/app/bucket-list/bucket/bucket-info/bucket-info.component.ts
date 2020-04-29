@@ -12,15 +12,13 @@ import {switchMap} from 'rxjs/operators';
 })
 export class BucketInfoComponent implements OnInit {
 
-  bucket: BucketModel;
+  @Input() bucket: BucketModel;
 
   constructor(
-    private activatedRoute: ActivatedRoute,
     private bucketService: BucketService
   ) { }
 
   ngOnInit() {
-    console.log(this.activatedRoute.snapshot.paramMap);
   }
 
   calculateSize(content: ContentModel[]): number {

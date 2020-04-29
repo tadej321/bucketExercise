@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {BucketModel} from './bucket.model';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {BucketService} from '../bucket.service';
@@ -8,7 +8,7 @@ import {BucketService} from '../bucket.service';
   templateUrl: './bucket.component.html',
   styleUrls: ['./bucket.component.css']
 })
-export class BucketComponent implements OnInit, OnDestroy {
+export class BucketComponent implements OnInit {
 
   bucket: BucketModel;
   bucketId: string;
@@ -23,14 +23,14 @@ export class BucketComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       this.bucketId = params.id;
+      this.bucketService.getBucketById(this.bucketId).subscribe(response => {
+        this.bucket = response;
+      });
     });
-    this.view = 'details';
+    this.view = 'files';
   }
 
   changeView(view: string) {
     this.view = view;
   }
-
-  ngOnDestroy(): void {}
-
 }

@@ -1,17 +1,13 @@
 <div id="bucket-container">
-  <input
-    id="details-button"
-    type="button"
-    value="Files"
-    routerLink="files"
-    routerLinkActive="active">
-  <input
-    id="files-button"
-    type="button"
-    value="Details"
-    routerLink="details"
-    routerLinkActive="active"
-  >
-  <router-outlet></router-outlet>
-</div>
+  <input id="details-button" type="button" (click)="changeView('files')" value="Files">
+  <input id="files-button" type="button" (click)="changeView('details')" value="Details">
 
+  <app-bucket-content
+    *ngIf="view === 'files'"
+    [bucket]="bucket"
+  ></app-bucket-content>
+  <app-bucket-info
+    *ngIf="view === 'details'"
+    [bucket]="bucket"
+  ></app-bucket-info>
+</div>

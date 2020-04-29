@@ -16,7 +16,6 @@ export class AppComponent {
 
   constructor(private router: Router) {
     this.router = router;
-    console.log(this.router.getCurrentNavigation());
   }
 
 

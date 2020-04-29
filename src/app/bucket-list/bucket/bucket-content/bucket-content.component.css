@@ -27,3 +27,7 @@ table thead {
 #file-input {
   display: none;
 }
+
+#removeFileInput {
+  float: right;
+}

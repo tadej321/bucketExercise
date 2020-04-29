@@ -16,7 +16,7 @@
       <tbody>
       <tr *ngFor="let bucket of buckets">
         <td>
-          <a routerLink="/bucket/{{bucket.id}}" routerLinkActive="active">{{bucket.name}}</a>
+          <a [routerLink]="['/bucket', bucket._id]" routerLinkActive="active">{{bucket.name}}</a>
         </td>
         <td>{{bucket.location}}</td>
       </tr>

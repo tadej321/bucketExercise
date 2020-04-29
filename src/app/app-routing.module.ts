@@ -11,17 +11,11 @@ import {BucketInfoComponent} from './bucket-list/bucket/bucket-info/bucket-info.
 */
 const routes: Routes = [
   { path: '', component: BucketListComponent},
-  { path: 'bucket/:id',
-    component: BucketComponent,
-    children: [
-      { path: 'files', component: BucketContentComponent},
-      { path: 'details', component: BucketInfoComponent},
-    ]
-  },
+  { path: 'bucket/:id', component: BucketComponent},
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule],
   providers: []
 })
