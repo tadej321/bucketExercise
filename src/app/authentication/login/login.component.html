@@ -1,0 +1,39 @@
+<div class="login-container">
+  <section >
+    <div>
+          <form  (submit)="onLogin(loginForm)" #loginForm="ngForm">
+            <div class="form-group">
+              <p>Enter anything in email format if not connected to a server.</p>
+              <input
+                type="email"
+                name="email"
+                ngModel
+                class="form-control"
+                placeholder="E-Mail"
+                #emailInput="ngModel"
+                email
+                (focus)="onFocus()"
+              >
+              <div class="text-left text-danger" *ngIf="emailInput.invalid">Please enter a valid email</div>
+              <div class="text-left text-danger" *ngIf="!correctEmail">Wrong email, try again</div>
+            </div>
+            <div class="form-group">
+              <p>Enter anything if not connected to a server.</p>
+              <input
+                type="password"
+                name="password"
+                ngModel
+                #passwordInput="ngModel"
+                class="form-control"
+                placeholder="Password"
+                (focus)="onFocus()"
+              >
+              <div class="text-left text-danger" *ngIf="!correctPassword">Wrong password, try again</div>
+            </div>
+            <button type="submit" >Login</button>
+            <a routerLink="/auth/signup" >Sign up</a>
+          </form>
+        <br>
+    </div>
+  </section>
+</div>

@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
 import {ContentModel} from './bucket/bucket-content/content.model';
 
 const LOCATIONS_URL = environment.locationsApiUrl;
-const BUCKET_URL = environment.bucketApiURl;
+const BACKEND_URL = environment.backendApiUrl;
 
 interface Location {
   location: string;
@@ -48,13 +48,13 @@ export class BucketService {
   constructor(private http: HttpClient, private router: Router) {}
 
   getBucketById(id: string): Observable<BucketModel> {
-    if (BUCKET_URL) {
+    if (BACKEND_URL) {
       return this.http.get<{
         id: string;
         name: string;
         location: string;
         content: ContentModel[];
-      }>(BUCKET_URL + id);
+      }>(BACKEND_URL + id);
     } else {
       return new Observable<BucketModel>((subscriber => {
         const bucketIndex = this.buckets.findIndex(i => i._id === id);
@@ -97,8 +97,8 @@ export class BucketService {
   }
 
   deleteBucket(id: string): void {
-    if (BUCKET_URL) {
-      this.http.delete<{message: string}>(BUCKET_URL + id)
+    if (BACKEND_URL) {
+      this.http.delete<{message: string}>(BACKEND_URL + id)
         .subscribe(response => {
           const updatedBuckets = [...this.buckets];
           const bucketIndex = updatedBuckets.findIndex(i => i._id === id);
@@ -126,7 +126,7 @@ export class BucketService {
   addFile(id: string, file: File): void {
 
     let postData: ContentModel | FormData;
-    if (BUCKET_URL) {
+    if (BACKEND_URL) {
       postData = new FormData();
       postData.append('fileName', file.name);
 
@@ -135,7 +135,7 @@ export class BucketService {
       postData.append('modified', file.lastModified.toLocaleString());
       postData.append('size', file.size.toString());
 
-      this.http.put(BUCKET_URL + id, file)
+      this.http.put(BACKEND_URL + id, file)
         .subscribe(response => {
           this.router.navigate(['bucket/' + id]);
         });
@@ -157,8 +157,8 @@ export class BucketService {
   }
 
   removeFile(fileId: string, bucketId: string): void {
-    if (BUCKET_URL) {
-      this.http.delete<{message: string}>(BUCKET_URL + '?fileId=' + fileId + '&bucketId=' + bucketId)
+    if (BACKEND_URL) {
+      this.http.delete<{message: string}>(BACKEND_URL + '?fileId=' + fileId + '&bucketId=' + bucketId)
         .subscribe(response => {
           this.router.navigate(['bucket/' + bucketId]);
         });

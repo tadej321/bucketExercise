@@ -12,6 +12,8 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
+import {AuthGuard} from './authentication/auth-guard';
+import {AuthInterceptor} from './authentication/auth-interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +32,8 @@ import {AppRoutingModule} from './app-routing.module';
     AppRoutingModule
   ],
   providers: [
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     RouterModule
   ],
   bootstrap: [AppComponent]
