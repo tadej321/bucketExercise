@@ -3,10 +3,20 @@ import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs';
 
+/**
+ * Injectable service that guards unauthenticated routes.
+ */
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
+  /**
+   * Checks if user is authenticated and returns boolean
+   *
+   * @returns boolean is authenticated
+   * @param route Snapshot of the activated route
+   * @param state Snapshot of the router state
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

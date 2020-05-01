@@ -45,7 +45,7 @@ describe('BucketService', () => {
     expect(bucketService).toBeTruthy();
   });
 
-  it('should make a ger request to retrieve a single bucket', () => {
+  it('should make a get request to retrieve a single bucket', () => {
 
     bucketService.getBucketById(dummyBucket._id).subscribe(bucket => {
       expect(bucket).toEqual(dummyBucket);
@@ -137,8 +137,8 @@ describe('BucketService', () => {
 
     const request = httpMock.expectOne(url + '/bucket');
 
-    expect(request.request.method).toBe('POST');
-    expect(request.request.body).toBe(dummyBucket);
+    expect(request.request.method).toEqual('POST');
+    expect(request.request.body).toEqual(dummyBucket);
 
     request.flush(dummyBucket);
     httpMock.verify();

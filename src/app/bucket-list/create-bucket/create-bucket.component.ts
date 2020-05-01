@@ -10,7 +10,8 @@ import {BucketModel} from '../bucket/bucket.model';
   styleUrls: ['./create-bucket.component.css']
 })
 export class CreateBucketComponent implements OnInit {
-  public locations;
+  private locations;
+  public filteredLocations;
 
   @ViewChild('locationInput', {static: false}) locationInput: FormControl;
   bucketNameInputElement = new FormControl('');
@@ -19,30 +20,44 @@ export class CreateBucketComponent implements OnInit {
   constructor(private bucketService: BucketService) { }
 
   ngOnInit(): void {
+    this.bucketService.getLocations().subscribe(data => {
+      this.locations = data;
+    });
   }
 
+  /**
+   * Filters the locations by the provided filter.
+   *
+   * @param event Keyup event
+   */
   filterLocations(event): void {
-    this.locations = [];
+    this.filteredLocations = [];
     const filter = event.target.value.toUpperCase();
-    this.bucketService.getLocations()
-      .subscribe(data => {
-        // tslint:disable-next-line:prefer-for-of
-        for (let i = 0; i < data.length; i++) {
-          const locationValue = data[i].location;
-          if (locationValue.toUpperCase().indexOf(filter) > -1) {
-            this.locations.push(data[i].location);
-          }
-        }
-      });
-
-
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < this.locations.length; i++) {
+      const locationValue = this.locations[i].location;
+      if (locationValue.toUpperCase().indexOf(filter) > -1) {
+        this.filteredLocations.push(this.locations[i].location);
+      }
+    }
   }
 
+  /**
+   * Sets the value of the selected location.
+   *
+   * @param event Click event
+   */
   setValue(event): void {
     this.locationInputElement.setValue(event.target.value);
 
   }
 
+  /**
+   * Calls the addBucket API to add the bucket.
+   *
+   * @param form Submited form with information about the bucket
+   * @param event Click event
+   */
   onCreateBucket(form: NgForm, event): void {
 
     const newBucket: BucketModel = {

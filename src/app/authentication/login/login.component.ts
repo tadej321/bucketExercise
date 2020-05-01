@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(public authService: AuthService) {}
 
   ngOnDestroy(): void {
+    this.authStatusSub.unsubscribe();
   }
 
   ngOnInit(): void {
@@ -25,6 +26,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe();
   }
 
+  /**
+   * Validates the form and calls the login API.
+   */
   onLogin(form: NgForm) {
     if (form.invalid) {
       return;
@@ -38,6 +42,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.authService.login(form.value.email, form.value.password);
   }
 
+  /**
+   * Resets the invalid labels on focus.
+   */
   onFocus() {
     this.correctPassword = true;
     this.correctEmail = true;

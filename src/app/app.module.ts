@@ -33,8 +33,8 @@ import {AuthInterceptor} from './authentication/auth-interceptor';
   ],
   providers: [
     AuthGuard,
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
-    RouterModule
+    RouterModule,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

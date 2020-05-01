@@ -12,7 +12,16 @@
 h1 {
   padding: 10px;
   margin: 0;
+  display: inline;
 }
+
+input {
+  display: inline;
+  float: right;
+}
+
 #container {
  background: #f6f6f6;
+  margin: 0 20% 0 20%;
+  height: 100vh;
 }

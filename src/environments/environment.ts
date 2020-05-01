@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  locationsApiUrl: 'https://api.lavbic.net/kraji', backendApiUrl: undefined
+  locationsApiUrl: 'http://api.lavbic.net/kraji', backendApiUrl: 'test'
 
 };
 

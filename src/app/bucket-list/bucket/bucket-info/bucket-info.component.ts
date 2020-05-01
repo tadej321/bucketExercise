@@ -21,6 +21,12 @@ export class BucketInfoComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Calculates the total size of all files.
+   *
+   * @returns number Size of bucket
+   * @param content Content of the bucket
+   */
   calculateSize(content: ContentModel[]): number {
     let bucketSize = 0;
     for (const file of content) {
@@ -29,7 +35,11 @@ export class BucketInfoComponent implements OnInit {
     return bucketSize;
   }
 
-
+  /**
+   * Calls the deleteBucket API
+   *
+   * @param bucketId Id of bucket to be deleted.
+   */
   onDeleteBucket(bucketId: string): void {
     if (confirm('Do you really want to delete this bucket?')) {
       this.bucketService.deleteBucket(bucketId);

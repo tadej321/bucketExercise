@@ -3,7 +3,7 @@
     <div>
           <form  (submit)="onLogin(loginForm)" #loginForm="ngForm">
             <div class="form-group">
-              <p>Enter anything in email format if not connected to a server.</p>
+              <p>Enter: test@test</p>
               <input
                 type="email"
                 name="email"
@@ -18,7 +18,7 @@
               <div class="text-left text-danger" *ngIf="!correctEmail">Wrong email, try again</div>
             </div>
             <div class="form-group">
-              <p>Enter anything if not connected to a server.</p>
+              <p>Enter: test</p>
               <input
                 type="password"
                 name="password"
@@ -31,7 +31,6 @@
               <div class="text-left text-danger" *ngIf="!correctPassword">Wrong password, try again</div>
             </div>
             <button type="submit" >Login</button>
-            <a routerLink="/auth/signup" >Sign up</a>
           </form>
         <br>
     </div>

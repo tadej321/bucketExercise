@@ -19,34 +19,19 @@ interface Location {
 })
 export class BucketService {
 
-  public buckets: BucketModel[] = [
-    {
-      _id: 'da6d8d8as7d68a7s6d',
-      name: 'bucket 1',
-      location: 'Ljubljana',
-      content: [
-        {_id: 'd7sf85a8c8a6df85ds67', fileName: 'filename 1', filePath: 'none', modified: new Date(), size: 312344},
-        {_id: 'vf80d6b58d5f78686f8a', fileName: 'filename 2', filePath: 'none', modified: new Date(), size: 150000},
-        {_id: 'fa6cv86a7v5a6s9687f8', fileName: 'filename 3', filePath: 'none', modified: new Date(), size: 1000}
-      ]},
-    {
-      _id: 'dasd9s7d9a7s97da9',
-      name: 'bucket 2',
-      location: 'Kranj',
-      content: [
-        {_id: 'av0vb67s88c6b6nb8sn5s', fileName: 'filename 4', filePath: 'none', modified: new Date(), size: 42000},
-        {_id: 'f675av5a57s5a797d7b68', fileName: 'filename 5', filePath: 'none', modified: new Date(), size: 15000},
-        {_id: 'sac86a08sc9868s5c74vb', fileName: 'filename 6', filePath: 'none', modified: new Date(), size: 970000}
-      ]
-    }
-  ];
-
-  public locations;
+  private buckets: BucketModel[] = [];
   private bucketsUpdated = new Subject<{buckets: BucketModel[]}>();
-
 
   constructor(private http: HttpClient, private router: Router) {}
 
+  /**
+   * Makes a GET request to the server to retrieve a single bucket.
+   *
+   *
+   * @returns Observable of type BucketModel
+   * @param id Unique id of the bucket
+   *
+   */
   getBucketById(id: string): Observable<BucketModel> {
     if (BACKEND_URL) {
       return this.http.get<{
@@ -64,6 +49,11 @@ export class BucketService {
     }
   }
 
+  /**
+   * Makes a GET request to the server to retrieve an array of buckets.
+   * Sets the buckets field to the response.
+   *
+   */
   getBuckets(): void {
     if (BACKEND_URL) {
       this.http.get<{message: string, buckets: BucketModel[]}>(
@@ -77,11 +67,18 @@ export class BucketService {
     }
   }
 
+  /**
+   * Return the bucketsUpdated Subject as an Observable, to which we subscribe to monitor changes.
+   *
+   * @returns Observable of type BucketModel array
+   */
   getBucketUpdatedListener(): Observable<{buckets: BucketModel[]}> {
     return this.bucketsUpdated.asObservable();
   }
 
-
+  /**
+   * Makes a GET request to the locations API to retrieve all locations.
+   */
   getLocations(): Observable<[Location]> {
     return new Observable((subscriber) => {
       this.http.get(
@@ -99,6 +96,12 @@ export class BucketService {
     });
   }
 
+  /**
+   * Makes a POST request to the server to add a new bucket.
+   * Updates the buckets field.
+   *
+   * @param newBucket The bucket we want to add.
+   */
   addBucket(newBucket: BucketModel): void {
     if (BACKEND_URL) {
       this.http.post<{message: string, bucket: BucketModel}>(
@@ -110,11 +113,18 @@ export class BucketService {
         this.bucketsUpdated.next({buckets: [...this.buckets]});
       });
     } else {
+      newBucket._id = newBucket.name + 'id';
       this.buckets.push(newBucket);
       this.bucketsUpdated.next({buckets: [...this.buckets]});
     }
   }
 
+  /**
+   * Makes a delete request to the server to remove the bucket.
+   * Updates the buckets field.
+   *
+   * @param id Of the bucket we want to delete.
+   */
   deleteBucket(id: string): void {
     if (BACKEND_URL) {
       this.http.delete<{message: string}>(BACKEND_URL + '/bucket/' + id)
@@ -142,6 +152,13 @@ export class BucketService {
     }
   }
 
+  /**
+   * Makes a PUT request to the server to update the bucket with the new file added.
+   * Updates the buckets field.
+   *
+   * @param id The id of the bucket we want to update.
+   * @param file The File we want to add to the bucket.
+   */
   addFile(id: string, file: File): void {
 
     let postData: ContentModel | FormData;
@@ -175,6 +192,12 @@ export class BucketService {
     }
   }
 
+  /**
+   * Makes a DELETE request to the server to remove the file from the bucket.
+   *
+   * @param fileId The id of the file to be removed.
+   * @param bucketId The id of the bucket which's file is to be removed.
+   */
   removeFile(fileId: string, bucketId: string): void {
     if (BACKEND_URL) {
       this.http.delete<{message: string}>(BACKEND_URL + '/bucket' + '?fileId=' + fileId + '&bucketId=' + bucketId)

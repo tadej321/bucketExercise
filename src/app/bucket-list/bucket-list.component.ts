@@ -14,7 +14,7 @@ export class BucketListComponent implements OnInit, OnDestroy {
   public buckets: BucketModel[] = [];
 
   private bucketSub: Subscription;
-  private openCreateBucket = false;
+  public openCreateBucket = false;
 
   @Output() viewedBucket = new EventEmitter<BucketModel>();
 
@@ -24,23 +24,18 @@ export class BucketListComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-    console.log(this.bucketSub);
     this.bucketSub = this.bucketService.getBucketUpdatedListener()
       .subscribe(bucketData => {
         this.buckets = bucketData.buckets;
       });
-    console.log(this.bucketSub);
     this.bucketService.getBuckets();
   }
 
-
+  /**
+   * Toggles the openCreateBucket to display the create-bucket component.
+   */
   onCreateNewBucket(): void {
     this.openCreateBucket = !this.openCreateBucket;
-  }
-
-  getBucketSub(): Subscription {
-
-    return this.bucketSub;
   }
 
   ngOnDestroy(): void {

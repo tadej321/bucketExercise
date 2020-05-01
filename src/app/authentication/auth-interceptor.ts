@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {AuthService} from './auth.service';
+import {environment} from '../../environments/environment';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -16,6 +17,9 @@ export class AuthInterceptor implements HttpInterceptor {
    **/
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
+    if (req.url === environment.locationsApiUrl) {
+      return next.handle(req);
+    }
     const authToken = this.authService.getToken();
 
     const authRequest = req.clone( {

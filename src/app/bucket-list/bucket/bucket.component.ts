@@ -30,6 +30,11 @@ export class BucketComponent implements OnInit {
     this.view = 'files';
   }
 
+  /**
+   * Changes the view
+   *
+   * @param view
+   */
   changeView(view: string) {
     this.view = view;
   }
