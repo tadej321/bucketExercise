@@ -5,7 +5,7 @@
   overflow: auto;
   border: 1px solid #ddd;
   z-index: 1;
-  max-height: 200px;
+  max-height: 130px;
 }
 
 .dropdown-content input {
@@ -25,9 +25,7 @@
 }
 
 
-
-
-#locationInput {
+.textInput {
   min-width: 150px;
   box-sizing: border-box;
   background-position: 14px 12px;
@@ -42,7 +40,7 @@ table {
 
 
 #create-container {
-  height: 200px;
+  min-height: 220px;
   background: white;
 }
 

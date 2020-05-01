@@ -10,8 +10,9 @@
         <td>
           <div class="form-group">
             <input
+              autocomplete="off"
               type="text"
-              class="form-control"
+              class="form-control textInput"
               name="bucketName"
               id="bucketName"
               [formControl]="bucketNameInputElement"
@@ -21,7 +22,8 @@
         <td>
           <div class="form-group">
             <input
-              class="form-control"
+              autocomplete="off"
+              class="form-control textInput"
               type="text"
               [formControl]="locationInputElement"
               name="location"
@@ -30,7 +32,7 @@
             >
             <div class="dropdown-content">
               <input
-                *ngFor="let location of locations"
+                *ngFor="let location of filteredLocations"
                 value="{{location}}"
                 (click)="setValue($event)"
               >
@@ -39,7 +41,7 @@
         </td>
       </tr>
     </table>
-    <input type="submit"  value="Create Bucket">
+    <input style="vertical-align: text-bottom" type="submit"  value="Create Bucket">
   </form>
 
 </div>

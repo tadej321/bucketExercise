@@ -23,6 +23,11 @@ export class BucketContentComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Reads the selected file and calls the addFile API
+   *
+   * @param event Change event
+   */
   onFilePicked(event: Event): void {
     const file = (event.target as HTMLInputElement).files[0];
 
@@ -33,7 +38,14 @@ export class BucketContentComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  /**
+   * Calls the removeFile API
+   *
+   * @param fileId Id of the file to be removed
+   */
   onRemoveFile(fileId: string): void {
-    this.bucketService.removeFile(fileId, this.bucket._id);
+    if (confirm('Do you really want to delete this file?')) {
+      this.bucketService.removeFile(fileId, this.bucket._id);
+    }
   }
 }

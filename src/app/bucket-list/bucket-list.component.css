@@ -19,6 +19,6 @@ table thead {
 }
 
 #list-container {
-  height: 200px;
-  background: white;
+  min-height: 200px;
+  background-color: white;
 }
