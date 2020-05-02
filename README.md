@@ -10,6 +10,10 @@ For login use:
 - username: test@test
 - password: test
 
+## API
+
+Navigate to /swagger-apis to see full API specification
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

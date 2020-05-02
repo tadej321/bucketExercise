@@ -14,6 +14,7 @@ import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthGuard} from './authentication/auth-guard';
 import {AuthInterceptor} from './authentication/auth-interceptor';
+import { SwaggerUiComponent } from './swagger-ui/swagger-ui.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import {AuthInterceptor} from './authentication/auth-interceptor';
     BucketComponent,
     CreateBucketComponent,
     BucketContentComponent,
-    BucketInfoComponent
+    BucketInfoComponent,
+    SwaggerUiComponent
   ],
   imports: [
     CommonModule,
