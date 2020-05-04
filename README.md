@@ -5,10 +5,11 @@ With this app you can create buckets to which you can upload your files for stor
 
 ## Test the app without backend connection
 
-Set backendApiUrl environment variable to undefined and run development server.\
-For login use:
+If not connected to a server, use:\
 - username: test@test
-- password: test
+- password: test\
+
+Otherwise set your server url in the environment.ts file under "backendApiUrl" variable. 
 
 ## API
 
@@ -24,4 +25,4 @@ Run `docker-compose up` and navigate to `http://localhost:8000/`
 ## Running unit tests
 
 Set the backendApiUrl environment\
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Run `npm test` to execute the unit tests via [Karma](https://karma-runner.github.io).

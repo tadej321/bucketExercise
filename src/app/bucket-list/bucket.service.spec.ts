@@ -51,7 +51,7 @@ describe('BucketService', () => {
       expect(bucket).toEqual(dummyBucket);
     });
 
-    const request = httpMock.expectOne(`${url}/bucket/${dummyBucket._id}`);
+    const request = httpMock.expectOne(`${url}/buckets/${dummyBucket._id}`);
 
     expect(request.request.method).toEqual('GET');
     expect(request.request.body).toEqual(null);
@@ -65,7 +65,7 @@ describe('BucketService', () => {
 
     bucketService.getBuckets();
 
-    const request = httpMock.expectOne(`${url}/bucket`);
+    const request = httpMock.expectOne(`${url}/buckets`);
 
     expect(request.request.method).toEqual('GET');
     expect(request.request.body).toEqual(null);
@@ -91,7 +91,7 @@ describe('BucketService', () => {
   it('should make a delete request to delete the bucket', () => {
     bucketService.deleteBucket(dummyBucket._id);
 
-    const request = httpMock.expectOne(`${url}/bucket/${dummyBucket._id}`);
+    const request = httpMock.expectOne(`${url}/buckets/${dummyBucket._id}`);
 
     expect(request.request.method).toEqual('DELETE');
     expect(request.request.body).toEqual(null);
@@ -103,7 +103,7 @@ describe('BucketService', () => {
   it('should make a delete request to delete a file from the bucket', () => {
     bucketService.removeFile(dummyFileObject._id, dummyBucket._id);
 
-    const request = httpMock.expectOne(`${url}/bucket?fileId=${dummyFileObject._id}&bucketId=${dummyBucket._id}`);
+    const request = httpMock.expectOne(`${url}/buckets?fileId=${dummyFileObject._id}&bucketId=${dummyBucket._id}`);
 
     expect(request.request.method).toEqual('DELETE');
     expect(request.request.body).toEqual(null);
@@ -122,7 +122,7 @@ describe('BucketService', () => {
 
     bucketService.addFile(dummyBucket._id, mockFile);
 
-    const request = httpMock.expectOne(`${url}/bucket/${dummyBucket._id}`);
+    const request = httpMock.expectOne(`${url}/buckets/${dummyBucket._id}`);
 
     expect(request.request.method).toEqual('PUT');
     expect(request.request.body).toEqual(testPostData);
@@ -135,7 +135,7 @@ describe('BucketService', () => {
 
     bucketService.addBucket(dummyBucket);
 
-    const request = httpMock.expectOne(url + '/bucket');
+    const request = httpMock.expectOne(url + '/buckets');
 
     expect(request.request.method).toEqual('POST');
     expect(request.request.body).toEqual(dummyBucket);

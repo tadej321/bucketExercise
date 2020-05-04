@@ -4,22 +4,7 @@
 
 export const environment = {
   production: false,
-  locationsApiUrl: 'http://api.lavbic.net/kraji',
-  backendApiUrl: undefined,
-  testBuckets: {
-    _id: 'dsds6d7s676',
-    name: 'testBucket',
-    location: 'Kranj',
-    content: [
-      {
-        _id: 'ds67d97s9d7',
-        fileName: 'testFile',
-        filePath: 'testPath',
-        modified: new Date(),
-        size: 340000
-      }
-    ]
-  }
+  locationsApiUrl: 'http://api.lavbic.net/kraji', backendApiUrl: 'test', testBuckets: undefined
 
 };
 

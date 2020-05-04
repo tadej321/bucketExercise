@@ -10,7 +10,6 @@ declare const SwaggerUIBundle: any;
 })
 export class SwaggerUiComponent implements OnInit {
 
-  title = '3fs Frontend Test';
   constructor() { }
 
   ngOnInit(): void {
@@ -22,8 +21,7 @@ export class SwaggerUiComponent implements OnInit {
         SwaggerUIBundle.presets.apis,
         SwaggerUIBundle.SwaggerUIStandalonePreset
       ],
-      spec: swaggerSpec.data
-      ,
+      spec: swaggerSpec.data,
       docExpansion: 'none',
       operationsSorter: 'alpha'
     });

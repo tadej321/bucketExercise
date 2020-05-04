@@ -1,11 +1,11 @@
-#files-button {
+
+.navigationButtons {
   display: inline;
 }
 
-#details-button {
-  display: inline;
+#back-button {
+  float: right;
 }
-
 
 #bucket-container {
   min-height: 200px;

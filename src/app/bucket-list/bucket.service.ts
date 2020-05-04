@@ -8,7 +8,8 @@ import {Router} from '@angular/router';
 import {ContentModel} from './bucket/bucket-content/content.model';
 
 const LOCATIONS_URL = environment.locationsApiUrl;
-const BACKEND_URL = environment.backendApiUrl;
+const BACKEND_URL = environment.backendApiUrl ? environment.backendApiUrl + '/buckets' : undefined;
+const testBucket = environment.testBuckets ? environment.testBuckets : undefined;
 
 interface Location {
   location: string;
@@ -19,7 +20,7 @@ interface Location {
 })
 export class BucketService {
 
-  private buckets: BucketModel[] = [];
+  private buckets: BucketModel[] = testBucket ? [testBucket] : [];
   private bucketsUpdated = new Subject<{buckets: BucketModel[]}>();
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -39,7 +40,7 @@ export class BucketService {
         name: string;
         location: string;
         content: ContentModel[];
-      }>(BACKEND_URL + '/bucket/' + id);
+      }>(`${BACKEND_URL}/${id}`);
     } else {
       return new Observable<BucketModel>((subscriber => {
         const bucketIndex = this.buckets.findIndex(i => i._id === id);
@@ -57,7 +58,7 @@ export class BucketService {
   getBuckets(): void {
     if (BACKEND_URL) {
       this.http.get<{message: string, buckets: BucketModel[]}>(
-        BACKEND_URL + '/bucket'
+        BACKEND_URL
       ).subscribe(response => {
         this.buckets = response.buckets;
         this.bucketsUpdated.next({buckets: [...this.buckets]});
@@ -105,7 +106,7 @@ export class BucketService {
   addBucket(newBucket: BucketModel): void {
     if (BACKEND_URL) {
       this.http.post<{message: string, bucket: BucketModel}>(
-        BACKEND_URL + '/bucket',
+        BACKEND_URL,
         newBucket
       ).subscribe((response) => {
         this.buckets.push(response.bucket);
@@ -127,7 +128,7 @@ export class BucketService {
    */
   deleteBucket(id: string): void {
     if (BACKEND_URL) {
-      this.http.delete<{message: string}>(BACKEND_URL + '/bucket/' + id)
+      this.http.delete<{message: string}>(`${BACKEND_URL}/${id}`)
         .subscribe(response => {
           const updatedBuckets = [...this.buckets];
           const bucketIndex = updatedBuckets.findIndex(i => i._id === id);
@@ -171,7 +172,7 @@ export class BucketService {
       postData.append('modified', file.lastModified.toLocaleString());
       postData.append('size', file.size.toString());
 
-      this.http.put(BACKEND_URL + '/bucket/' + id, postData)
+      this.http.put(`${BACKEND_URL}/${id}`, postData)
         .subscribe(response => {
           this.router.navigate(['bucket/' + id]);
         });
@@ -200,7 +201,7 @@ export class BucketService {
    */
   removeFile(fileId: string, bucketId: string): void {
     if (BACKEND_URL) {
-      this.http.delete<{message: string}>(BACKEND_URL + '/bucket' + '?fileId=' + fileId + '&bucketId=' + bucketId)
+      this.http.delete<{message: string}>(`${BACKEND_URL}?fileId=${fileId}&bucketId=${bucketId}`)
         .subscribe(response => {
           this.router.navigate(['bucket/' + bucketId]);
         });

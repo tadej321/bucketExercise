@@ -1,6 +1,7 @@
 <div id="bucket-container">
-  <input id="details-button" type="button" (click)="changeView('files')" value="Files">
-  <input id="files-button" type="button" (click)="changeView('details')" value="Details">
+  <input class="navigationButtons" id="details-button" type="button" (click)="changeView('files')" value="Files">
+  <input class="navigationButtons" id="files-button" type="button" (click)="changeView('details')" value="Details">
+  <input class="navigationButtons" id="back-button" type="button" [routerLink]="['']" routerLinkActive="active" value="Back to buckets">
 
   <app-bucket-content
     *ngIf="view === 'files'"

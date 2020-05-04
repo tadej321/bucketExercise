@@ -20,8 +20,7 @@ export class BucketContentComponent implements OnInit {
     private route: Router
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   /**
    * Reads the selected file and calls the addFile API
